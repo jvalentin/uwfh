@@ -1,6 +1,7 @@
 #include "batt.h"
 #include "spi.h"
-#include "msp430.h"
+//#include "msp430.h"
+#include <msp430x22x2.h>
 #include "main.h"
 
 void gen_pec ( unsigned char data, unsigned char* pec );

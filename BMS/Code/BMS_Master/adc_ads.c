@@ -1,5 +1,6 @@
 // Include files
-#include "msp430.h"
+//#include "msp430.h"
+#include <msp430x22x2.h>
 #include "spi.h"
 #include "main.h"
 

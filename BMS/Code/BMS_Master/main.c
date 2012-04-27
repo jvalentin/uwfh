@@ -1,7 +1,9 @@
-#include "msp430.h"
+//#include "msp430.h"
+#include <msp430x22x2.h>
 #include "adc_ads.h"
 #include "spi.h"
 #include "batt.h"
+#include "can.h"
 
 #include "main.h"
 
@@ -22,7 +24,28 @@
 // Function Declarations
 //
 void timer_init(void);
-void initPortPins(void);
+
+//
+// Initialize port pins
+//
+void initPortPins(void)
+{
+  P1DIR = 0xFF;								// no inputs needed
+  P2DIR = ~(PIN2+PIN1);                		// Set P2.2,1 as input
+  P3DIR = ~(PIN5+PIN2);							// Set P3.5,2 as an input
+  P4DIR = (char)~(0x82); //~(PIN7+PIN1);						// Set P4.7,1 as input
+  P3SEL = PIN1 + PIN2 + PIN3 + PIN4 + PIN5;
+
+	IO_POS_OFF;
+	IO_NEG_OFF;
+	IO_PRE_OFF;
+	IO_STROBE_ON;
+	IO_CAR_OK;
+	IO_STK1_CS_DIS;
+	IO_STK2_CS_DIS;
+	IO_CAN_CS_DIS;
+	IO_ADC_CS_DIS;
+}
 
 void clock_init (void)
 {
@@ -33,17 +56,7 @@ void clock_init (void)
 
 void main(void)
 {
-	WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
-	clock_init();
-	__enable_interrupt();                     // Enable interrupts
 	
-  initPortPins();                           // Initialize port pins
-  timer_init();
-//  ADC_init();
-//  DAC_init();
-//  UART_init();
-  spi_init();
-
 	unsigned char energize_debounce = 0;
 	unsigned char energize_state = STATE_OFF;
 	unsigned int precharge_delay = 0;
@@ -57,6 +70,54 @@ void main(void)
 	unsigned char batt_cfg[6], batt_cfg_out[6*3];
 	
 	unsigned char batt_diag[2*3];
+	
+	WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
+	clock_init();
+	__enable_interrupt();                     // Enable interrupts
+	
+  initPortPins();                           // Initialize port pins
+  timer_init();
+//  ADC_init();
+//  DAC_init();
+  uart_init();
+  spi_init();
+  can_init(CAN_BITRATE_250);
+  
+  
+  //BEGIN TEST CODE
+  can.address = 0x504; //DC_CAN_BASE + DC_SWITCH;
+  can.data.data_u16[0] = 0x0000;
+  can.data.data_u16[1] = 0x0000;
+  uart_transmit('0');
+  uart_transmit('2');
+  uart_transmit('5');
+  uart_transmit('0');
+  uart_transmit('0');
+  uart_transmit(',');
+  uart_transmit('0');
+  uart_transmit('3');
+  uart_transmit('0');
+  uart_transmit(',');
+  uart_transmit('0');
+  uart_transmit('4');
+  uart_transmit('0');
+  uart_transmit(',');
+  uart_transmit('0');
+  uart_transmit('9');
+  uart_transmit('4');
+  uart_transmit('2');
+  uart_transmit(',');
+  uart_transmit('6');
+  uart_transmit('9');
+  
+  can_push_ptr->address = can.address;
+  can_push_ptr->status = 8;
+  can_push_ptr->data.data_u16[0] = can.data.data_u16[0];
+  can_push_ptr->data.data_u16[1] = can.data.data_u16[1];
+  can_push();
+  can_transmit();
+  can_sleep();
+  //END TEST CODE
 	
 	//batt_cfg[0] = BATT_CDC_OFF_13ms | BATT_CELL10;
 	//batt_cfg[1] = 0x0;
@@ -110,7 +171,7 @@ void main(void)
 	    	
 	    	batt_state = BATT_CV;
      	}
-     	else if ( batt_state = BATT_CV )
+     	else if ( batt_state == BATT_CV )
      	{
 			BATT_read_cv ( cv_stk2, 3, STACK_2 );
 			
