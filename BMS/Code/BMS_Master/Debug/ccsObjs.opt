@@ -1,1 +1,0 @@
-"./spi.obj" "./main.obj" "./batt.obj" "./adc_ads.obj" -l"libc.a" "../lnk_msp430f2272.cmd" 
