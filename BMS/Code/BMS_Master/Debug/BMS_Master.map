@@ -1,0 +1,502 @@
+******************************************************************************
+       MSP430 Evaluation Linker PC v3.3.2                      
+******************************************************************************
+>> Linked Thu Apr 26 04:42:20 2012
+
+OUTPUT FILE NAME:   <BMS_Master.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 000089da
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  SFR                   00000000   00000010  00000000  00000010  RWIX
+  PERIPHERALS_8BIT      00000010   000000f0  00000000  000000f0  RWIX
+  PERIPHERALS_16BIT     00000100   00000100  00000000  00000100  RWIX
+  RAM                   00000200   00000400  00000058  000003a8  RWIX
+  INFOD                 00001000   00000040  00000000  00000040  RWIX
+  INFOC                 00001040   00000040  00000000  00000040  RWIX
+  INFOB                 00001080   00000040  00000000  00000040  RWIX
+  INFOA                 000010c0   00000040  00000000  00000040  RWIX
+  FLASH                 00008000   00007fde  00000a80  0000755e  RWIX
+  INT00                 0000ffe0   00000002  00000000  00000002  RWIX
+  INT01                 0000ffe2   00000002  00000000  00000002  RWIX
+  INT02                 0000ffe4   00000002  00000000  00000002  RWIX
+  INT03                 0000ffe6   00000002  00000000  00000002  RWIX
+  INT04                 0000ffe8   00000002  00000000  00000002  RWIX
+  INT05                 0000ffea   00000002  00000000  00000002  RWIX
+  INT06                 0000ffec   00000002  00000000  00000002  RWIX
+  INT07                 0000ffee   00000002  00000000  00000002  RWIX
+  INT08                 0000fff0   00000002  00000000  00000002  RWIX
+  INT09                 0000fff2   00000002  00000002  00000000  RWIX
+  INT10                 0000fff4   00000002  00000000  00000002  RWIX
+  INT11                 0000fff6   00000002  00000000  00000002  RWIX
+  INT12                 0000fff8   00000002  00000000  00000002  RWIX
+  INT13                 0000fffa   00000002  00000002  00000000  RWIX
+  INT14                 0000fffc   00000002  00000000  00000002  RWIX
+  RESET                 0000fffe   00000002  00000002  00000000  RWIX
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.cinit     0    00008000    00000000     UNINITIALIZED
+
+.pinit     0    00008000    00000000     UNINITIALIZED
+
+.bss       0    00000200    00000008     UNINITIALIZED
+                  00000200    00000004     rts430.lib : _lock.obj (.bss)
+                  00000204    00000004                : boot.obj (.bss)
+
+.stack     0    000005b0    00000050     UNINITIALIZED
+                  000005b0    00000002     rts430.lib : boot.obj (.stack)
+                  000005b2    0000004e     --HOLE--
+
+.text      0    00008000    00000a80     
+                  00008000    00000194     batt.obj (.text:BATT_read_temp)
+                  00008194    00000180     main.obj (.text:main)
+                  00008314    00000156     batt.obj (.text:BATT_read_cv)
+                  0000846a    000000be     batt.obj (.text:BATT_config)
+                  00008528    000000bc     batt.obj (.text:BATT_read_cfg)
+                  000085e4    000000b4     batt.obj (.text:BATT_read_diag)
+                  00008698    000000ae     batt.obj (.text:gen_pec)
+                  00008746    00000058     batt.obj (.text:BATT_start_conv_cv)
+                  0000879e    00000058     batt.obj (.text:BATT_start_conv_temp)
+                  000087f6    00000052     adc_ads.obj (.text:ADC_read12)
+                  00008848    0000004c     rts430.lib : lsr16.obj (.text)
+                  00008894    00000046     main.obj (.text:initPortPins)
+                  000088da    00000030     spi.obj (.text:spi_set_mode)
+                  0000890a    0000002c     rts430.lib : asr16.obj (.text)
+                  00008936    0000002c                : div16s.obj (.text)
+                  00008962    0000002c                : lsl16.obj (.text)
+                  0000898e    00000026     spi.obj (.text:spi_init)
+                  000089b4    00000026     main.obj (.text:timer_init)
+                  000089da    0000001e     rts430.lib : boot.obj (.text:_c_int00_noinit_noexit)
+                  000089f8    0000001e     spi.obj (.text:spi_exchange)
+                  00008a16    00000018     spi.obj (.text:spi_transmit)
+                  00008a2e    00000016     rts430.lib : div16u.obj (.text)
+                  00008a44    00000014                : mult16.obj (.text)
+                  00008a58    0000000e     main.obj (.text:clock_init)
+                  00008a66    00000008     main.obj (.text:Timer_A)
+                  00008a6e    00000008     main.obj (.text:Timer_B)
+                  00008a76    00000004     rts430.lib : pre_init.obj (.text:_system_pre_init)
+                  00008a7a    00000004                : exit.obj (.text:abort)
+                  00008a7e    00000002                : _lock.obj (.text:_nop)
+
+.int09     0    0000fff2    00000002     
+                  0000fff2    00000002     main.obj (.int09)
+
+.int13     0    0000fffa    00000002     
+                  0000fffa    00000002     main.obj (.int13)
+
+.reset     0    0000fffe    00000002     
+                  0000fffe    00000002     rts430.lib : boot.obj (.reset)
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address    name
+--------   ----
+00000200   .bss
+00008000   .text
+0000004a   ADC10AE0
+0000004b   ADC10AE1
+000001b0   ADC10CTL0
+000001b2   ADC10CTL1
+00000048   ADC10DTC0
+00000049   ADC10DTC1
+000001b4   ADC10MEM
+000001bc   ADC10SA
+000087f6   ADC_read12
+0000846a   BATT_config
+00008528   BATT_read_cfg
+00008314   BATT_read_cv
+000085e4   BATT_read_diag
+00008000   BATT_read_temp
+00008746   BATT_start_conv_cv
+0000879e   BATT_start_conv_temp
+00000057   BCSCTL1
+00000058   BCSCTL2
+00000053   BCSCTL3
+00008a7a   C$$EXIT
+000010fb   CALBC1_12MHZ
+000010f9   CALBC1_16MHZ
+000010ff   CALBC1_1MHZ
+000010fd   CALBC1_8MHZ
+000010fa   CALDCO_12MHZ
+000010f8   CALDCO_16MHZ
+000010fe   CALDCO_1MHZ
+000010fc   CALDCO_8MHZ
+00000056   DCOCTL
+00000128   FCTL1
+0000012a   FCTL2
+0000012c   FCTL3
+00000000   IE1
+00000001   IE2
+00000002   IFG1
+00000003   IFG2
+0000890a   I_ASR
+00008932   I_ASR_1
+00008920   I_ASR_10
+0000891e   I_ASR_11
+0000891c   I_ASR_12
+0000891a   I_ASR_13
+00008918   I_ASR_14
+00008916   I_ASR_15
+00008930   I_ASR_2
+0000892e   I_ASR_3
+0000892c   I_ASR_4
+0000892a   I_ASR_5
+00008928   I_ASR_6
+00008926   I_ASR_7
+00008924   I_ASR_8
+00008922   I_ASR_9
+00008962   I_LSL
+0000898a   I_LSL_1
+00008978   I_LSL_10
+00008976   I_LSL_11
+00008974   I_LSL_12
+00008972   I_LSL_13
+00008970   I_LSL_14
+0000896e   I_LSL_15
+00008988   I_LSL_2
+00008986   I_LSL_3
+00008984   I_LSL_4
+00008982   I_LSL_5
+00008980   I_LSL_6
+0000897e   I_LSL_7
+0000897c   I_LSL_8
+0000897a   I_LSL_9
+00008848   I_LSR
+0000888e   I_LSR_1
+0000886a   I_LSR_10
+00008866   I_LSR_11
+00008862   I_LSR_12
+0000885e   I_LSR_13
+0000885a   I_LSR_14
+00008856   I_LSR_15
+0000888a   I_LSR_2
+00008886   I_LSR_3
+00008882   I_LSR_4
+0000887e   I_LSR_5
+0000887a   I_LSR_6
+00008876   I_LSR_7
+00008872   I_LSR_8
+0000886e   I_LSR_9
+00000022   P1DIR
+00000025   P1IE
+00000024   P1IES
+00000023   P1IFG
+00000020   P1IN
+00000021   P1OUT
+00000027   P1REN
+00000026   P1SEL
+0000002a   P2DIR
+0000002d   P2IE
+0000002c   P2IES
+0000002b   P2IFG
+00000028   P2IN
+00000029   P2OUT
+0000002f   P2REN
+0000002e   P2SEL
+0000001a   P3DIR
+00000018   P3IN
+00000019   P3OUT
+00000010   P3REN
+0000001b   P3SEL
+0000001e   P4DIR
+0000001c   P4IN
+0000001d   P4OUT
+00000011   P4REN
+0000001f   P4SEL
+00000172   TACCR0
+00000174   TACCR1
+00000176   TACCR2
+00000162   TACCTL0
+00000164   TACCTL1
+00000166   TACCTL2
+00000160   TACTL
+0000012e   TAIV
+00000170   TAR
+00000192   TBCCR0
+00000194   TBCCR1
+00000196   TBCCR2
+00000182   TBCCTL0
+00000184   TBCCTL1
+00000186   TBCCTL2
+00000180   TBCTL
+0000011e   TBIV
+00000190   TBR
+00008a66   Timer_A
+00008a6e   Timer_B
+0000005d   UCA0ABCTL
+00000062   UCA0BR0
+00000063   UCA0BR1
+00000060   UCA0CTL0
+00000061   UCA0CTL1
+0000005f   UCA0IRRCTL
+0000005e   UCA0IRTCTL
+00000064   UCA0MCTL
+00000066   UCA0RXBUF
+00000065   UCA0STAT
+00000067   UCA0TXBUF
+0000006a   UCB0BR0
+0000006b   UCB0BR1
+00000068   UCB0CTL0
+00000069   UCB0CTL1
+0000006c   UCB0I2CIE
+00000118   UCB0I2COA
+0000011a   UCB0I2CSA
+0000006e   UCB0RXBUF
+0000006d   UCB0STAT
+0000006f   UCB0TXBUF
+00000120   WDTCTL
+00000600   __STACK_END
+00000050   __STACK_SIZE
+00000001   __TI_args_main
+00000001   __TI_auto_init
+00000001   __TI_exit
+ffffffff   __binit__
+00000200   __bss__
+ffffffff   __c_args__
+ffffffff   __cinit__
+00008936   __divi
+00008a2e   __divu
+00000208   __end__
+00008a80   __etext__
+00008a44   __mpyi
+ffffffff   __pinit__
+00008936   __remi
+00008a2e   __remu
+00008000   __text__
+000089da   _c_int00
+000089da   _c_int00_noinit_noexit
+00000204   _cleanup_ptr
+00000206   _dtors_ptr
+00000200   _lock
+00008a7e   _nop
+0000fffe   _reset_vector
+000005b0   _stack
+00008a76   _system_pre_init
+00000202   _unlock
+00008a7a   abort
+ffffffff   binit
+ffffffff   cinit
+00008a58   clock_init
+00000208   end
+00008a80   etext
+00008698   gen_pec
+00008194   main
+ffffffff   pinit
+000089f8   spi_exchange
+0000898e   spi_init
+000088da   spi_set_mode
+00008a16   spi_transmit
+000089b4   timer_init
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address    name
+--------   ----
+00000000   IE1
+00000001   IE2
+00000001   __TI_args_main
+00000001   __TI_auto_init
+00000001   __TI_exit
+00000002   IFG1
+00000003   IFG2
+00000010   P3REN
+00000011   P4REN
+00000018   P3IN
+00000019   P3OUT
+0000001a   P3DIR
+0000001b   P3SEL
+0000001c   P4IN
+0000001d   P4OUT
+0000001e   P4DIR
+0000001f   P4SEL
+00000020   P1IN
+00000021   P1OUT
+00000022   P1DIR
+00000023   P1IFG
+00000024   P1IES
+00000025   P1IE
+00000026   P1SEL
+00000027   P1REN
+00000028   P2IN
+00000029   P2OUT
+0000002a   P2DIR
+0000002b   P2IFG
+0000002c   P2IES
+0000002d   P2IE
+0000002e   P2SEL
+0000002f   P2REN
+00000048   ADC10DTC0
+00000049   ADC10DTC1
+0000004a   ADC10AE0
+0000004b   ADC10AE1
+00000050   __STACK_SIZE
+00000053   BCSCTL3
+00000056   DCOCTL
+00000057   BCSCTL1
+00000058   BCSCTL2
+0000005d   UCA0ABCTL
+0000005e   UCA0IRTCTL
+0000005f   UCA0IRRCTL
+00000060   UCA0CTL0
+00000061   UCA0CTL1
+00000062   UCA0BR0
+00000063   UCA0BR1
+00000064   UCA0MCTL
+00000065   UCA0STAT
+00000066   UCA0RXBUF
+00000067   UCA0TXBUF
+00000068   UCB0CTL0
+00000069   UCB0CTL1
+0000006a   UCB0BR0
+0000006b   UCB0BR1
+0000006c   UCB0I2CIE
+0000006d   UCB0STAT
+0000006e   UCB0RXBUF
+0000006f   UCB0TXBUF
+00000118   UCB0I2COA
+0000011a   UCB0I2CSA
+0000011e   TBIV
+00000120   WDTCTL
+00000128   FCTL1
+0000012a   FCTL2
+0000012c   FCTL3
+0000012e   TAIV
+00000160   TACTL
+00000162   TACCTL0
+00000164   TACCTL1
+00000166   TACCTL2
+00000170   TAR
+00000172   TACCR0
+00000174   TACCR1
+00000176   TACCR2
+00000180   TBCTL
+00000182   TBCCTL0
+00000184   TBCCTL1
+00000186   TBCCTL2
+00000190   TBR
+00000192   TBCCR0
+00000194   TBCCR1
+00000196   TBCCR2
+000001b0   ADC10CTL0
+000001b2   ADC10CTL1
+000001b4   ADC10MEM
+000001bc   ADC10SA
+00000200   .bss
+00000200   __bss__
+00000200   _lock
+00000202   _unlock
+00000204   _cleanup_ptr
+00000206   _dtors_ptr
+00000208   __end__
+00000208   end
+000005b0   _stack
+00000600   __STACK_END
+000010f8   CALDCO_16MHZ
+000010f9   CALBC1_16MHZ
+000010fa   CALDCO_12MHZ
+000010fb   CALBC1_12MHZ
+000010fc   CALDCO_8MHZ
+000010fd   CALBC1_8MHZ
+000010fe   CALDCO_1MHZ
+000010ff   CALBC1_1MHZ
+00008000   .text
+00008000   BATT_read_temp
+00008000   __text__
+00008194   main
+00008314   BATT_read_cv
+0000846a   BATT_config
+00008528   BATT_read_cfg
+000085e4   BATT_read_diag
+00008698   gen_pec
+00008746   BATT_start_conv_cv
+0000879e   BATT_start_conv_temp
+000087f6   ADC_read12
+00008848   I_LSR
+00008856   I_LSR_15
+0000885a   I_LSR_14
+0000885e   I_LSR_13
+00008862   I_LSR_12
+00008866   I_LSR_11
+0000886a   I_LSR_10
+0000886e   I_LSR_9
+00008872   I_LSR_8
+00008876   I_LSR_7
+0000887a   I_LSR_6
+0000887e   I_LSR_5
+00008882   I_LSR_4
+00008886   I_LSR_3
+0000888a   I_LSR_2
+0000888e   I_LSR_1
+000088da   spi_set_mode
+0000890a   I_ASR
+00008916   I_ASR_15
+00008918   I_ASR_14
+0000891a   I_ASR_13
+0000891c   I_ASR_12
+0000891e   I_ASR_11
+00008920   I_ASR_10
+00008922   I_ASR_9
+00008924   I_ASR_8
+00008926   I_ASR_7
+00008928   I_ASR_6
+0000892a   I_ASR_5
+0000892c   I_ASR_4
+0000892e   I_ASR_3
+00008930   I_ASR_2
+00008932   I_ASR_1
+00008936   __divi
+00008936   __remi
+00008962   I_LSL
+0000896e   I_LSL_15
+00008970   I_LSL_14
+00008972   I_LSL_13
+00008974   I_LSL_12
+00008976   I_LSL_11
+00008978   I_LSL_10
+0000897a   I_LSL_9
+0000897c   I_LSL_8
+0000897e   I_LSL_7
+00008980   I_LSL_6
+00008982   I_LSL_5
+00008984   I_LSL_4
+00008986   I_LSL_3
+00008988   I_LSL_2
+0000898a   I_LSL_1
+0000898e   spi_init
+000089b4   timer_init
+000089da   _c_int00
+000089da   _c_int00_noinit_noexit
+000089f8   spi_exchange
+00008a16   spi_transmit
+00008a2e   __divu
+00008a2e   __remu
+00008a44   __mpyi
+00008a58   clock_init
+00008a66   Timer_A
+00008a6e   Timer_B
+00008a76   _system_pre_init
+00008a7a   C$$EXIT
+00008a7a   abort
+00008a7e   _nop
+00008a80   __etext__
+00008a80   etext
+0000fffe   _reset_vector
+ffffffff   __binit__
+ffffffff   __c_args__
+ffffffff   __cinit__
+ffffffff   __pinit__
+ffffffff   binit
+ffffffff   cinit
+ffffffff   pinit
+
+[196 symbols]
