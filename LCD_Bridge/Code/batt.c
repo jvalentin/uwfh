@@ -24,8 +24,8 @@ void BATT_config ( unsigned char* cfg, unsigned char n, unsigned char stack )
 	
 	spi_set_mode ( UCCKPH, 0, BATT_SPEED );
     
-    if ( stack == STACK_1 ) { IO_STK1_EN; IO_STK1_CS_EN; }
-    else if  ( stack == STACK_2 ) { IO_STK2_EN; IO_STK2_CS_EN; }
+    if ( stack == STACK_1 ) { IO_STK1_CS_EN; }
+    else if  ( stack == STACK_2 ) { IO_STK2_CS_EN; }
     
     spi_transmit(WRCFG);
     gen_pec(WRCFG,&pec);
@@ -46,8 +46,6 @@ void BATT_config ( unsigned char* cfg, unsigned char n, unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 }
 
 void BATT_start_conv_cv ( unsigned char stack )
@@ -56,8 +54,8 @@ void BATT_start_conv_cv ( unsigned char stack )
 	
 	spi_set_mode ( UCCKPH, 0, BATT_SPEED );
     
-    if ( stack == STACK_1 ) { IO_STK1_EN; IO_STK1_CS_EN; }
-    else if  ( stack == STACK_2 ) { IO_STK2_EN; IO_STK2_CS_EN; }
+    if ( stack == STACK_1 ) { IO_STK1_CS_EN; }
+    else if  ( stack == STACK_2 ) { IO_STK2_CS_EN; }
     
     spi_transmit(STCVAD);
     gen_pec(STCVAD,&pec);
@@ -65,8 +63,6 @@ void BATT_start_conv_cv ( unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 }
 
 // 10*n cell voltages
@@ -79,8 +75,8 @@ void BATT_read_cv ( unsigned int* cv, unsigned char n, unsigned char stack )
 	
 	spi_set_mode ( UCCKPH, 0, BATT_SPEED );
     
-    if ( stack == STACK_1 ) { IO_STK1_EN; IO_STK1_CS_EN; }
-    else if  ( stack == STACK_2 ) { IO_STK2_EN; IO_STK2_CS_EN; }
+    if ( stack == STACK_1 ) { IO_STK1_CS_EN; }
+    else if  ( stack == STACK_2 ) { IO_STK2_CS_EN; }
     
     spi_transmit(RDCV);
     gen_pec(RDCV,&pec);
@@ -114,8 +110,6 @@ void BATT_read_cv ( unsigned int* cv, unsigned char n, unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 }
 
 void BATT_start_conv_temp ( unsigned char stack )
@@ -126,12 +120,10 @@ void BATT_start_conv_temp ( unsigned char stack )
     
 	if ( stack == STACK_1 )
 	{
-		IO_STK1_EN;
 		IO_STK1_CS_EN;
 	}
     else if  ( stack == STACK_2 )
     {
-    	IO_STK2_EN;
     	IO_STK2_CS_EN;
     }
     
@@ -141,8 +133,6 @@ void BATT_start_conv_temp ( unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 }
 
 // (2 external, 1 internal)*n temperatures
@@ -155,8 +145,8 @@ void BATT_read_temp ( unsigned int* temp, unsigned char n, unsigned char stack )
 	
 	spi_set_mode ( UCCKPH, 0, BATT_SPEED );
     
-    if ( stack == STACK_1 ) { IO_STK1_EN; IO_STK1_CS_EN; }
-    else if  ( stack == STACK_2 ) { IO_STK2_EN; IO_STK2_CS_EN; }
+    if ( stack == STACK_1 ) { IO_STK1_CS_EN; }
+    else if  ( stack == STACK_2 ) { IO_STK2_CS_EN; }
     
     spi_transmit(RDTMP);
     gen_pec(RDTMP,&pec);
@@ -190,8 +180,6 @@ void BATT_read_temp ( unsigned int* temp, unsigned char n, unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 } 
 
 void BATT_read_diag ( unsigned char* buf, unsigned char n, unsigned char stack )
@@ -201,8 +189,8 @@ void BATT_read_diag ( unsigned char* buf, unsigned char n, unsigned char stack )
 	
 	spi_set_mode ( UCCKPH, 0, BATT_SPEED );
     
-    if ( stack == STACK_1 ) { IO_STK1_EN; IO_STK1_CS_EN; }
-    else if  ( stack == STACK_2 ) { IO_STK2_EN; IO_STK2_CS_EN; }
+    if ( stack == STACK_1 ) { IO_STK1_CS_EN; }
+    else if  ( stack == STACK_2 ) { IO_STK2_CS_EN; }
     
     spi_transmit(RDDGNR);
     gen_pec(RDDGNR,&pec);
@@ -219,8 +207,6 @@ void BATT_read_diag ( unsigned char* buf, unsigned char n, unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 }
 
 
@@ -231,8 +217,8 @@ void BATT_read_cfg ( unsigned char* buf, unsigned char n, unsigned char stack )
 	
 	spi_set_mode ( UCCKPH, 0, BATT_SPEED );
     
-    if ( stack == STACK_1 ) { IO_STK1_EN; IO_STK1_CS_EN; }
-    else if  ( stack == STACK_2 ) { IO_STK2_EN; IO_STK2_CS_EN; }
+    if ( stack == STACK_1 ) { IO_STK1_CS_EN; }
+    else if  ( stack == STACK_2 ) { IO_STK2_CS_EN; }
     
     spi_transmit(RDCFG);
     gen_pec(RDCFG,&pec);
@@ -249,8 +235,6 @@ void BATT_read_cfg ( unsigned char* buf, unsigned char n, unsigned char stack )
     
     IO_STK1_CS_DIS;    
     IO_STK2_CS_DIS;
-    IO_STK1_DIS;    
-    IO_STK2_DIS;
 }
 
 void gen_pec ( unsigned char data, unsigned char* pec )

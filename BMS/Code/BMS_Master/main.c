@@ -4,6 +4,7 @@
 #include "spi.h"
 #include "batt.h"
 #include "can.h"
+#include "can_data.h"
 
 #include "main.h"
 
@@ -34,7 +35,8 @@ void initPortPins(void)
   P2DIR = ~(PIN2+PIN1);                		// Set P2.2,1 as input
   P3DIR = ~(PIN5+PIN2);							// Set P3.5,2 as an input
   P4DIR = (char)~(0x82); //~(PIN7+PIN1);						// Set P4.7,1 as input
-  P3SEL = PIN1 + PIN2 + PIN3 + PIN4 + PIN5;
+  P3SEL = PIN1 + PIN2 + PIN3;
+  P3OUT = 0x00;
 
 	IO_POS_OFF;
 	IO_NEG_OFF;
@@ -70,8 +72,16 @@ void main(void)
 	unsigned char batt_cfg[6], batt_cfg_out[6*3];
 	
 	unsigned char batt_diag[2*3];
+	unsigned int i;
 	
 	WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
+	
+	//Delay to allow 3.3V rail to fully rise, essential for CAN part
+	//because MSP430 will turn on at 1.8V or less
+	//Especially is 3.3V voltage supervisor is not installed!
+	for(i=0; i<65000; i++)
+		asm("nop");
+		
 	clock_init();
 	__enable_interrupt();                     // Enable interrupts
 	
@@ -79,45 +89,9 @@ void main(void)
   timer_init();
 //  ADC_init();
 //  DAC_init();
-  uart_init();
+//  uart_init();
   spi_init();
   can_init(CAN_BITRATE_250);
-  
-  
-  //BEGIN TEST CODE
-  can.address = 0x504; //DC_CAN_BASE + DC_SWITCH;
-  can.data.data_u16[0] = 0x0000;
-  can.data.data_u16[1] = 0x0000;
-  uart_transmit('0');
-  uart_transmit('2');
-  uart_transmit('5');
-  uart_transmit('0');
-  uart_transmit('0');
-  uart_transmit(',');
-  uart_transmit('0');
-  uart_transmit('3');
-  uart_transmit('0');
-  uart_transmit(',');
-  uart_transmit('0');
-  uart_transmit('4');
-  uart_transmit('0');
-  uart_transmit(',');
-  uart_transmit('0');
-  uart_transmit('9');
-  uart_transmit('4');
-  uart_transmit('2');
-  uart_transmit(',');
-  uart_transmit('6');
-  uart_transmit('9');
-  
-  can_push_ptr->address = can.address;
-  can_push_ptr->status = 8;
-  can_push_ptr->data.data_u16[0] = can.data.data_u16[0];
-  can_push_ptr->data.data_u16[1] = can.data.data_u16[1];
-  can_push();
-  can_transmit();
-  can_sleep();
-  //END TEST CODE
 	
 	//batt_cfg[0] = BATT_CDC_OFF_13ms | BATT_CELL10;
 	//batt_cfg[1] = 0x0;
@@ -144,13 +118,16 @@ void main(void)
      * Out of sleep mode.
      */
      
-     
      val = ADC_read12( ADS_PW | ADS_SINGLE | ADS_CH2 );
      
      batt_temp_delay++;
      if ( batt_temp_delay > BATT_TEMP_DELAY )
      {
      	batt_temp_delay = 0;
+     	
+     	//Send a test can message
+     spi_set_mode ( UCCKPH, 0, 5 );
+     can_write_vcell(cv_stk2, BATT_S1);
      	
      	BATT_read_diag ( batt_diag, 3, STACK_2 );
      	BATT_read_cfg ( batt_cfg_out, 3, STACK_2 );

@@ -22,13 +22,9 @@
 
 #define IO_STK1_CS_DIS	P3OUT |= PIN0;
 #define IO_STK1_CS_EN	P3OUT &= ~PIN0;
-#define IO_STK1_DIS		P3OUT &= ~PIN4;
-#define IO_STK1_EN		P3OUT |= PIN4;
 
 #define IO_STK2_CS_DIS	P4OUT |= PIN2;
 #define IO_STK2_CS_EN	P4OUT &= ~PIN2;
-#define IO_STK2_DIS		P3OUT &= ~PIN5;
-#define IO_STK2_EN		P3OUT |= PIN5;
 
 #define IO_CAN_CS_DIS	P4OUT |= PIN0;
 #define IO_CAN_CS_EN	P4OUT &= ~PIN0;
