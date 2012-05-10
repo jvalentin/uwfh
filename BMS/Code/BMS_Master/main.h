@@ -5,6 +5,8 @@
 
 #define IO_ENERGIZE	(!(P4IN & PIN7))
 
+#define IO_GFD_OK (P2IN & PIN2)
+
 #define IO_POS_ON	P1OUT |= PIN1;
 #define IO_POS_OFF	P1OUT &= ~PIN1;
 
@@ -17,7 +19,7 @@
 #define IO_STROBE_ON	P4OUT |= PIN5;
 #define IO_STROBE_OFF	P4OUT &= ~PIN5;
 
-#define IO_RESET_CAR	P4OUT |= PIN6;
+#define IO_FAULT		P4OUT |= PIN6;
 #define IO_CAR_OK		P4OUT &= ~PIN6;
 
 #define IO_STK1_CS_DIS	P3OUT |= PIN0;

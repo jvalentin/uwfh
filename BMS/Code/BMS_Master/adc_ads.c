@@ -8,15 +8,17 @@ unsigned char ADC_read( unsigned char config )
 {
     unsigned char adc_val;
     
-    spi_set_mode ( UCCKPH, 0, 5 );
+    spi_set_mode ( UCCKPH, 0, 10 );
     
     IO_ADC_CS_EN;
+    IO_STK2_EN;
     
     spi_transmit(config);
     adc_val = (unsigned int) (spi_exchange(0)&0x7F)<<1;
     adc_val |= ((((unsigned int) spi_exchange(0)) & 0x80)>>7);
         
     IO_ADC_CS_DIS;
+    IO_STK2_DIS;
     
     return adc_val;	
 }
@@ -26,15 +28,17 @@ unsigned int ADC_read12( unsigned char config )
 {
     unsigned int adc_val;
     
-    spi_set_mode ( UCCKPH, 0, 5 );
+    spi_set_mode ( UCCKPH, 0, 10 );
     
     IO_ADC_CS_EN;
+    IO_STK2_EN;
     
     spi_transmit(config);
     adc_val = (unsigned int) (spi_exchange(0)&0x7F)<<5;
     adc_val |= ((((unsigned int) spi_exchange(0)) & 0xF8)>>3);
     
     IO_ADC_CS_DIS;
+    IO_STK2_DIS;
     
     return adc_val;	
 }         
