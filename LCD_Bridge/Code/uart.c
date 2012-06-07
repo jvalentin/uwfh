@@ -48,3 +48,14 @@ unsigned char uart_receive( void )
 {
 	return UCA0RXBUF;
 }
+
+
+void uart_transmit_string( unsigned char* data, unsigned int len )
+{
+	unsigned int i;
+
+	for ( i = 0; i < len; i++ )
+	{
+		uart_transmit(data[i]);
+	}
+}

@@ -32,4 +32,6 @@
 #define IO_ADC_CS_DIS	P4OUT |= PIN3;
 #define IO_ADC_CS_EN	P4OUT &= ~PIN3;
 
+#define IO_CAN_INT		(!(P4IN & PIN1))
+
 #endif /*MAIN_H_*/

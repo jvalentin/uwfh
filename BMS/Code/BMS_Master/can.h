@@ -116,9 +116,12 @@ void 					can_mod( unsigned char address, unsigned char mask, unsigned char data
 // BMS String 2 CAN base address and packet offsets
 #define BMS_S2_CAN_BASE 	0x300
 
-#define BMS_TEMP	    0x01 	//First 16b is max temp in string, Second is max abmient temp in string
+#define BMS_TEMP	    0x01
 #define BMS_VMINMAX  	0x02    //First 16b is max cell voltage in string, Second is min in string
 #define BMS_VAVG    	0x04    //First 16b is average cell voltage in string
+
+#define BMS_STAT		0x05
+#define BMS_CV			0x10
 
 
 // Motor controller CAN base address and packet offsets

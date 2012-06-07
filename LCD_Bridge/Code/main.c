@@ -36,6 +36,17 @@ void initPortPins(void)
 	IO_ADC_CS_DIS;
 }
 
+void tx ( void )
+{
+		can_push_ptr->address =  BMS_S1_CAN_BASE;
+		can_push_ptr->data.data_u16[0] = 123;
+		can_push_ptr->data.data_u16[1] = 456;
+		can_push_ptr->data.data_u16[2] = 789;
+		can_push_ptr->status = 6;
+		can_push();
+	  can_transmit();
+}
+
 void clock_init (void)
 {
 	DCOCTL = CALDCO_12MHZ;
@@ -53,6 +64,8 @@ void main(void)
 	char TEMP[2] = {'0','0'};
 	unsigned int i;
 	
+	unsigned int a;
+
 	WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
 	//Delay to allow 3.3V rail to fully rise, essential for CAN part
 	//because MSP430 will turn on at 1.8V or less
@@ -69,51 +82,46 @@ void main(void)
 //  DAC_init();
   uart_init();
   spi_init();
+  spi_set_mode ( UCCKPH, 0, 5 );
   can_init(CAN_BITRATE_250);
   
-  can_sleep();
-  can_wake();
+  //can_sleep();
+  //can_wake();
   
   while(1)
   {
   	//Check if a CAN message has arrived
-  	//if( (P4IN&PIN1) == 0x00 ) //interrupt is low, message has arrived
+  	if( IO_CAN_INT ) //interrupt is low, message has arrived
   	{
   		can_receive();
   		if( can.status != CAN_ERROR )
   		{
-  			if( can.address == (BMS_S1_CAN_BASE+BMS_VMINMAX) )
+  			if( can.address == (BMS_S1_CAN_BASE+BMS_STAT) )
   			{
-  				//BEGIN TEST CODE
-  				uart_transmit('0');
-  				uart_transmit('2');
-  				uart_transmit('5');
-  				uart_transmit('0');
-  				uart_transmit('0');
+  				a = can.data.data_u16[0] / 10;
+  				itoa ( a, VOLT, 10 );
+
+  				a = can.data.data_u16[1];
+  				//itoa ( a, TEMP, 10 );
+
+
+  				uart_transmit_string ( RPM, 5 );
+  				uart_transmit(',');
+  				uart_transmit_string ( CUR, 3 );
+  				uart_transmit(',');
+  				uart_transmit_string ( REG, 3 );
+  				uart_transmit(',');
+  				uart_transmit_string ( VOLT, 4 );
   				uart_transmit(',');
   				uart_transmit('0');
-  				uart_transmit('3');
   				uart_transmit('0');
-  				uart_transmit(',');
-  				uart_transmit('0');
-  				uart_transmit('4');
-			    uart_transmit('0');
-  				uart_transmit(',');
-  				uart_transmit('0');
-  				uart_transmit('9');
-  				uart_transmit('4');
-  				uart_transmit('2');
-  				uart_transmit(',');
-  				uart_transmit('6');
-  				uart_transmit('9');
-  				//END TEST CODE
+  				//uart_transmit('\n');
   			}
   		}
   	}
   }
 }
 
-/*
 // Timer Interrupt Service Routine
 #pragma vector=TIMERA0_VECTOR
 __interrupt void Timer_A (void)
@@ -126,7 +134,7 @@ __interrupt void Timer_A (void)
 #pragma vector=TIMERB0_VECTOR
 __interrupt void Timer_B (void)
 {
-  P4OUT ^=  PIN4;
+  //P4OUT ^=  PIN4;
 }
 
 // Initialize TimerA to wake up processor at 2kHz
@@ -145,4 +153,3 @@ void timer_init(void)
   CCTL0 = CCIE;                             // CCR0 interrupt enabled
   TBCCTL0 = CCIE;                             // CCR0 interrupt enabled
 }
-*/

@@ -78,11 +78,13 @@ extern can_variables	*can_push_ptr;
 
 // Receive filters and masks
 // Receive buffer 0, can choose two different receive blocks, with a single mask
-#define RX_MASK_0		0x07E0			// Only care about upper 6 bits of 11-bit address
+//#define RX_MASK_0		0x07E0			// Only care about upper 6 bits of 11-bit address
+#define RX_MASK_0		0x0700
 #define RX_ID_0A		BMS_S1_CAN_BASE		// Receive packets from BMS String 1
 #define RX_ID_0B		BMS_S2_CAN_BASE		// Receive packets from BMS String 2
 // Receive buffer 1, can choose four different receive blocks, with a single mask
-#define RX_MASK_1		0x07E0			// Only care about upper 6 bits of 11-bit address
+//#define RX_MASK_1		0x07E0			// Only care about upper 6 bits of 11-bit address
+#define RX_MASK_1		0x0700
 #define RX_ID_1A		BMS_S1_CAN_BASE		// Receive packets from BMS String 1
 #define RX_ID_1B		BMS_S2_CAN_BASE		// Receive packets from BMS String 2
 #define RX_ID_1C		0x0000			// Unused
@@ -120,6 +122,12 @@ void 					can_mod( unsigned char address, unsigned char mask, unsigned char data
 #define BMS_VMINMAX  	0x02    //First 16b is max cell voltage in string, Second is min in string
 #define BMS_VAVG    	0x04    //First 16b is average cell voltage in string
 
+#define BMS_TEMP	    0x01
+#define BMS_VMINMAX  	0x02    //First 16b is max cell voltage in string, Second is min in string
+#define BMS_VAVG    	0x04    //First 16b is average cell voltage in string
+
+#define BMS_STAT		0x05
+#define BMS_CV			0x10
 
 // Motor controller CAN base address and packet offsets
 #define	MC_CAN_BASE		0x400		// High = Serial Number             Low = "TRIa" string

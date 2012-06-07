@@ -86,8 +86,11 @@ void can_init( unsigned int bitrate_index )
 		case CAN_BITRATE_250:
 			buffer[0] = 0x05;
 			buffer[1] = 0xF8;
+			buffer[1] = 0xC9;
 			buffer[1] = 0xF1;
-			buffer[2] = 0x01;						
+//			buffer[2] = 0x01;
+//			buffer[1] = 0xD0;
+			buffer[2] = 0x01;
 			break;
 		case CAN_BITRATE_1000:
 			buffer[0] = 0x02;
@@ -156,7 +159,8 @@ void can_init( unsigned int bitrate_index )
 	can_write( RXM0SIDH, &buffer[0], 8 );
 	
 	// Switch out of config mode into normal operating mode
-	can_mod( CANCTRL, 0xE0, 0x00 );			// CANCTRL register, modify upper 3 bits, mode = Normal
+	//can_mod( CANCTRL, 0xE0, 0x00 );			// CANCTRL register, modify upper 3 bits, mode = Normal
+	can_mod( CANCTRL, 0xE0, 0x00 );
 }
 
 /*

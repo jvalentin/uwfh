@@ -20,7 +20,7 @@ void uart_init( void );
  *	- Busy waits until transfer is complete
  */
 void uart_transmit( unsigned char data );
-
+void uart_transmit_string( unsigned char* data, unsigned int len );
 /*
  * Returns the current value in the UART buffer
  */

@@ -141,8 +141,8 @@ void main(void)
      	batt_temp_delay = 0;
      	
      	//Send a test can message
-     spi_set_mode ( UCCKPH, 0, 5 );
-     can_write_vcell(cv_stk2, BATT_S1);
+     //spi_set_mode ( UCCKPH, 0, 5 );
+     //can_write_vcell(cv_stk2, BATT_S1);
      	
      	BATT_read_diag ( batt_diag, 3, STACK_1 );
      	BATT_read_cfg ( batt_cfg_out, 3, STACK_1 );
@@ -185,6 +185,15 @@ void main(void)
 			
 			batt_state = BATT_TEMP;
 			
+	     	spi_set_mode ( UCCKPH, 0, 5 );
+	     	can_write_vstats(BATT_S1, cv_stk1, temp_stk1, isense1);
+	     	can_write_vstats(BATT_S2, cv_stk2, temp_stk2, isense2);
+
+	     	//can_write_vcell(BATT_S1, cv_stk1);
+	     	//can_write_vcell(BATT_S2, cv_stk2);
+
+	     	can_write_temps(BATT_S1, temp_stk1);
+	     	can_write_temps(BATT_S2, temp_stk2);
 			
 			for ( i = 0; i < 30; i++ )
 		     {
@@ -248,6 +257,7 @@ void main(void)
 		     
 		     fault = 0;
      	}
+
      }
      
      if ( IO_ENERGIZE && energize_state == STATE_OFF ) energize_debounce++;
