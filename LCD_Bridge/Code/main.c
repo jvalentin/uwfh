@@ -102,7 +102,7 @@ void main(void)
   				itoa ( a, VOLT, 10 );
 
   				a = can.data.data_u16[1];
-  				//itoa ( a, TEMP, 10 );
+  				itoa ( a, TEMP, 10 );
 
 
   				uart_transmit_string ( RPM, 5 );
@@ -113,8 +113,9 @@ void main(void)
   				uart_transmit(',');
   				uart_transmit_string ( VOLT, 4 );
   				uart_transmit(',');
-  				uart_transmit('0');
-  				uart_transmit('0');
+  				//uart_transmit('0');
+  				//uart_transmit('0');
+  				uart_transmit_string ( TEMP, 2 );
   				//uart_transmit('\n');
   			}
   		}
